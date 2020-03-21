@@ -9,12 +9,34 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
 
-  <title>Weather Dashboard</title>
+  <title>Weather Now! - Current and Future Weather Forecasts</title>
 </head>
 
 <body>
 
+  <header class="bg-dark py-2 text-white text-center">
+    <h1>Weather Dashboard</h1>
+  </header>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 col-xl-2 pt-3">
+        <form id="search-form" role="search" class="d-flex align-items-center">
+          <div class="form-group w-100">
+            <label for="search-input" class="ml-1">Search for a City: </label>
+            <input type="input" class="form-control" id="search-input">
+          </div>
+          <button type="submit" class="btn btn-primary mt-3 ml-1"><span class="fa fa-search"></span></button>
+        </form>
+
+        <div id="search-history" class="btn-group-vertical sidebar-scrollable w-100 justify-content-start">
+        </div>
+      </div>
+      <main class="col-md-9 col-xl-10"></main>
+    </div>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
