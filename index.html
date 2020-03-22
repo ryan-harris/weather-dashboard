@@ -7,34 +7,85 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/11e8571af7.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
 
   <title>Weather Now! - Current and Future Weather Forecasts</title>
 </head>
 
 <body>
-
+  <!-- header -->
   <header class="bg-dark py-2 text-white text-center">
-    <h1>Weather Dashboard</h1>
+    <h1><span class="fas fa-globe-americas"></span> Weather Dashboard</h1>
   </header>
 
   <div class="container-fluid">
     <div class="row">
+      <!-- sidebar -->
       <div class="col-md-3 col-xl-2 pt-3">
-        <form id="search-form" role="search" class="d-flex align-items-center">
-          <div class="form-group w-100">
-            <label for="search-input" class="ml-1">Search for a City: </label>
-            <input type="input" class="form-control" id="search-input">
-          </div>
-          <button type="submit" class="btn btn-primary mt-3 ml-1"><span class="fa fa-search"></span></button>
+        <!-- search form -->
+        <form id="search-form" role="search" class="d-flex align-items-center mb-3">
+          <input type="search" class="form-control" id="search-input" placeholder="Search by City..">
+          <button type="submit" class="btn btn-primary ml-1"><span class="fas fa-search"></span></button>
         </form>
 
-        <div id="search-history" class="btn-group-vertical sidebar-scrollable w-100 justify-content-start">
+        <!-- search history -->
+        <div id="search-history" class="btn-group-vertical w-100 justify-content-start history-scrollable">
+          <!-- <div class="btn-group">
+            <button class="btn btn-light border-right-0 text-left px-3 py-2 w-100" data-city="basd">basd</button>
+            <button class="btn btn-light btn-remove border-left-0 float-right fas fa-times"></button>
+          </div> -->
         </div>
       </div>
-      <main class="col-md-9 col-xl-10"></main>
+
+      <!-- Main view, weather data -->
+      <main class="col-md-9 col-xl-10 pt-3" role="main">
+        <div id="current-weather" class="p-3 border mb-3">
+          <h2><strong id="current-city">Atlanta (3/21/2020)</strong></h2>
+          <h4>Current Conditions</h4>
+          <img id="current-icon" src="http://openweathermap.org/img/wn/10d@2x.png" class="ml-3">
+          <p>Temperature: <span id="current-temp">88.5</span>&deg; F</p>
+          <p>Humidity: <span id="current-humidity">41</span>%</p>
+          <p>Wind Speed: <span id="current-wind">6.7</span> MPH</p>
+          <p id="current-uv-element">UV Index: <span id="current-uv" class="px-2 py-1 rounded" style="background-color: darkred; color: white;">9.49</span></p>
+        </div>
+
+        <div id="future-forecast" class="p-3 border">
+          <h3>5-Day Forecast</h3>
+          <div class="card-deck">
+            <div class="card text-center bg-primary text-light p-2 mb-3" style="max-width: 10rem; min-width: 10rem;">
+              <h5>8/15/2020</h5>
+              <img class="mx-auto p-2" src="http://openweathermap.org/img/wn/10d.png">
+              <p>Temp: <span>65</span>&deg; F</p>
+              <p>Humidity: <span>43</span>%</p>
+            </div>
+            <div class="card text-center bg-primary text-light p-2 mb-3" style="max-width: 10rem; min-width: 10rem;">
+              <h5>8/15/2020</h5>
+              <img class="mx-auto p-2" src="http://openweathermap.org/img/wn/10d.png">
+              <p>Temp: <span>65</span>&deg; F</p>
+              <p>Humidity: <span>43</span>%</p>
+            </div>
+            <div class="card text-center bg-primary text-light p-2 mb-3" style="max-width: 10rem; min-width: 10rem;">
+              <h5>8/15/2020</h5>
+              <img class="mx-auto p-2" src="http://openweathermap.org/img/wn/10d.png">
+              <p>Temp: <span>65</span>&deg; F</p>
+              <p>Humidity: <span>43</span>%</p>
+            </div>
+            <div class="card text-center bg-primary text-light p-2 mb-3" style="max-width: 10rem; min-width: 10rem;">
+              <h5>8/15/2020</h5>
+              <img class="mx-auto p-2" src="http://openweathermap.org/img/wn/10d.png">
+              <p>Temp: <span>65</span>&deg; F</p>
+              <p>Humidity: <span>43</span>%</p>
+            </div>
+            <div class="card text-center bg-primary text-light p-2 mb-3" style="max-width: 10rem; min-width: 10rem;">
+              <h5>8/15/2020</h5>
+              <img class="mx-auto p-2" src="http://openweathermap.org/img/wn/10d.png">
+              <p>Temp: <span>65</span>&deg; F</p>
+              <p>Humidity: <span>43</span>%</p>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   </div>
 

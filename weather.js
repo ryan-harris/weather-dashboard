@@ -1,5 +1,5 @@
-const HISTORY_KEY = "weather-city-history";
-const HISTORY_BS_CLASSES = "btn btn-light border text-left px-3 py-2";
+const HISTORY_KEY = "weatherCitySearchHistory";
+const HISTORY_BTN_BS_CLASSES = "btn btn-light border text-left px-3 py-2";
 const HISTORY_DATA_CITY_ATTR = "data-city";
 
 let history = JSON.parse(localStorage.getItem(HISTORY_KEY));
@@ -55,7 +55,7 @@ function renderHistory() {
   // for each item in history array
   history.forEach(city => {
     // create a button and add classes/attributes
-    let btn = $("<button>").addClass(HISTORY_BS_CLASSES);
+    let btn = $("<button>").addClass(HISTORY_BTN_BS_CLASSES);
     btn.attr(HISTORY_DATA_CITY_ATTR, city);
     btn.text(city);
     // append button to search history
