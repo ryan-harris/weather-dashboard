@@ -53,7 +53,7 @@ function renderCityWeather(city) {
     });
 
     // update current weather on page
-    $("#current-city").text(response.name + " (" + moment().utcOffset(response.timezone / 60).format("l") + ")")
+    $("#current-city").text(response.name + " (" + moment().format("l") + ")")
     $("#current-icon").attr("src", getWeatherIconURL(response.weather[0].icon))
     $("#current-temp").text(response.main.temp.toFixed(1));
     $("#current-humidity").text(response.main.humidity);
@@ -77,7 +77,7 @@ function renderCityWeather(city) {
       let dayCard = $("#forecast-day-" + i);
 
       // get the day but account for timezone offset
-      dayCard.find("h5").text(moment(list[listIndex].dt * 1000).utcOffset(response.city.timezone / 60).format("l"));
+      dayCard.find("h5").text(moment(list[listIndex].dt * 1000).format("l"));
       dayCard.find("img").attr("src", getWeatherIconURL(list[listIndex].weather[0].icon));
       dayCard.find(".temp").text(list[listIndex].main.temp.toFixed(1));
       dayCard.find(".humidity").text(list[listIndex].main.humidity);
@@ -140,7 +140,7 @@ function findGoodStartIndex(response) {
   let startIndex = 8;
   do {
     startIndex--;
-    indexHour = parseInt(moment(list[startIndex].dt * 1000).utcOffset(response.city.timezone / 60).format("H"));
+    indexHour = parseInt(moment(list[startIndex].dt * 1000).format("H"));
   } while (indexHour >= 15 && startIndex > 0)
 
   return startIndex;
@@ -161,5 +161,5 @@ function getUVColorStyle(uvIndex) {
 }
 
 function getWeatherIconURL(iconCode) {
-  return "http://openweathermap.org/img/w/" + iconCode + ".png";
+  return "https://openweathermap.org/img/w/" + iconCode + ".png";
 }
