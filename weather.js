@@ -31,6 +31,7 @@ function renderCityWeather(city) {
   $("#current-uv-element").attr("style", "display: none;")
   $("#future-weather").attr("style", "display: none;")
 
+  // get current weather
   let currentQueryURL = "https://api.openweathermap.org/data/2.5/weather?units=imperial&appid=" + API_KEY + "&q=" + city;
   $.ajax({
     url: currentQueryURL,
@@ -52,7 +53,7 @@ function renderCityWeather(city) {
     });
 
     // update current weather on page
-    $("#current-city").text(response.name + " (" + moment().format("l") + ")")
+    $("#current-city").text(response.name + " (" + moment().utcOffset(response.timezone / 60).format("l") + ")")
     $("#current-icon").attr("src", getWeatherIconURL(response.weather[0].icon))
     $("#current-temp").text(response.main.temp.toFixed(1));
     $("#current-humidity").text(response.main.humidity);
@@ -60,6 +61,33 @@ function renderCityWeather(city) {
 
     // show current weather div
     $("#current-weather").attr("style", "display: block;");
+  });
+
+  // get 5-day forecast weather
+  let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&appid=" + API_KEY + "&q=" + city;
+  $.ajax({
+    url: forecastQueryURL,
+    method: "GET"
+  }).then(function(response) {
+    let listIndex = findGoodStartIndex(response);
+    let list = response.list;
+
+    // update all 5 cards
+    for (let i = 1; i <= 5; i++) {
+      let dayCard = $("#forecast-day-" + i);
+
+      // get the day but account for timezone offset
+      dayCard.find("h5").text(moment(list[listIndex].dt * 1000).utcOffset(response.city.timezone / 60).format("l"));
+      dayCard.find("img").attr("src", getWeatherIconURL(list[listIndex].weather[0].icon));
+      dayCard.find(".temp").text(list[listIndex].main.temp.toFixed(1));
+      dayCard.find(".humidity").text(list[listIndex].main.humidity);
+
+      // items in the response are 3-hours apart so +8 is 24 hours later
+      listIndex += 8;
+    }
+
+    // show forecast weather on page
+    $("#future-weather").attr("style", "display: block;")
   });
 }
 
@@ -69,7 +97,7 @@ function handleSearch(event) {
   // get the input from search box
   let city = $("#search-input").val().trim();
   // clear out the search box
-  $(this).find("input").val("");
+  $("#search-input").val("");
   // add the city to our search history
   addHistoryItem(city);
   // render the city's weather
@@ -104,9 +132,18 @@ function addHistoryItem(city) {
     localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
     renderHistory();
   } 
-  // else {
-  //   cityHistory.push(cityHistory.splice(cityHistory.indexOf(city), 1)[0]);
-  // }
+}
+
+// this function finds a good starting index in the list of 40 items (5-day 3-hour forecasts)
+function findGoodStartIndex(response) {
+  let list = response.list;
+  let startIndex = 8;
+  do {
+    startIndex--;
+    indexHour = parseInt(moment(list[startIndex].dt * 1000).utcOffset(response.city.timezone / 60).format("H"));
+  } while (indexHour >= 15 && startIndex > 0)
+
+  return startIndex;
 }
 
 function getUVColorStyle(uvIndex) {
